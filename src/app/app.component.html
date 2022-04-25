@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../assets/css/starter.css">
+    <title>Personality Test</title>
+  </head>
+  <body>
+    <div class="col-md-12 py-5 px-3 mx-auto">
+      <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
+      <script type="module" src="assets/js/starter.js"></script>
+  
+      <h3>{{title}}</h3>
+      <form [formGroup]="surveyForm" (ngSubmit)="saveSurvey()">
+        <div *ngFor="let c of category; let indexofcategory = index">
+          <label style="font-weight: bold;">{{c.category}}</label>
+          <div *ngFor="let q of c.questions; let indexofquestion = index">
+            <div *ngIf="q.question_type.type === qtype.single_choice || q.question_type.type === qtype.single_choice_conditional">
+              <label>Q{{indexofquestion+1}} - {{q.question}}" </label>
+              <div>
+                <select id="{{q.id}}" [(ngModel)]="category[indexofcategory].questions[indexofquestion].answer" formControlName="q{{q.id}}" (change)="parentQuestionCheck(q)" >
+                  <option value="">Seçiniz</option>
+                  <option value={{opt}} *ngFor="let opt of q.question_type.options">
+                    {{opt}}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div *ngIf="q.question_type.type === qtype.number_range">
+              <label>Q{{indexofquestion+1}} - {{q.question}}" </label>
+              <div>
+                  <select id="{{q.id}}" [(ngModel)]="category[indexofcategory].questions[indexofquestion].answer" formControlName="q{{q.id}}">
+                    <option value="" selected disabled hidden>Seçiniz</option>
+                    <option value={{option}} 
+                            *ngFor="let option of numberRange(q.question_type.range.from, q.question_type.range.to)">
+                            {{option}}
+                    </option>
+                  </select>
+              </div>
+            </div>            
+            <br/>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary mr-3">Kaydet</button>
+      </form>
+    </div>
+  </body>
+</html>
+
+
+<router-outlet></router-outlet>
