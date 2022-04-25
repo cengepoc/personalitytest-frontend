@@ -1,6 +1,9 @@
 # PersonalityTest
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.2.
+Json olarak iletilen soru kümesi typescript ile bir form a dönüştürüldü.
+DB tarafında mysql kullanıldı ve sadece cevaplar için bir tablo oluşturuldu.
+Http üzerinden ekrandan alınan cevaplar backendde spring boot rest servisine iletildi.
 
 ## Development server
 
